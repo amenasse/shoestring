@@ -32,16 +32,15 @@
 
 {% verbatim %}
 <script id="layout" type="text/ractive">
-{{#partial modalContent}}
-    <mini-cart cart="{{cart}}" >
-{{/partial}}
-
 <main class="uk-grid">
     <aside class="uk-width-1-6">
         <filter-list title="Tags" items="{{tags}}" />
         <filter-list title="Brands" items="{{brands}}" />
-        <modal>{{modalContent}} </modal>
-
+        <modal>
+            {{#partial modalContent}}
+                <mini-cart cart="{{cart}}" >
+            {{/partial}}
+         </modal>
     </aside>
     <section class="uk-width-5-6 uk-grid uk-grid-width-1-3">
         {{#products}}
