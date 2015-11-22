@@ -9,6 +9,7 @@
 
         <script src="{% static 'shoestring/uikit/js/uikit.min.js' %}"></script>
 
+<script id="modal" type="text/ractive">{% include 'shoestring/modal.html' %}</script>
 <script id="cart" type="text/ractive">{% include 'shoestring/cart.html' %}</script>
 <script id="mini-cart" type="text/ractive">{% include 'shoestring/mini-cart.html' %}</script>
 <script id="product-list" type="text/ractive">{% include 'shoestring/product-list.html' %}</script>
@@ -24,17 +25,23 @@
 </script>
 
         <script src="{% static 'shoestring/js/rpc.js' %}"></script>
+        <script src="{% static 'shoestring/js/modal.js' %}"></script>
         <script src="{% static 'shoestring/js/cart.js' %}"></script>
         <script src="{% static 'shoestring/js/products.js' %}"></script>
         <script src="{% static 'shoestring/js/filter-list.js' %}"></script>
 
 {% verbatim %}
 <script id="layout" type="text/ractive">
+{{#partial modalContent}}
+    <mini-cart cart="{{cart}}" >
+{{/partial}}
+
 <main class="uk-grid">
     <aside class="uk-width-1-6">
         <filter-list title="Tags" items="{{tags}}" />
         <filter-list title="Brands" items="{{brands}}" />
-        <mini-cart cart="{{cart}}" />
+        <modal>{{modalContent}} </modal>
+
     </aside>
     <section class="uk-width-5-6 uk-grid uk-grid-width-1-3">
         {{#products}}
@@ -69,6 +76,7 @@ $(function () {
             }
         },
         components: {
+            'modal': Modal,
             cart: FullCart,
             'mini-cart': MiniCart,
             'product-list': ProductList,
